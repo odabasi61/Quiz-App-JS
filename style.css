@@ -278,10 +278,10 @@ footer .total_que span p:first-child {
   padding-left: 0px;
 }
 
-footer button {
+.next_btn {
   height: 40px;
   padding: 0 13px;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 400;
   cursor: pointer;
   border: none;
@@ -291,21 +291,19 @@ footer button {
   background: #007bff;
   border: 1px solid #007bff;
   line-height: 10px;
-  opacity: 0;
-  pointer-events: none;
-  transform: scale(0.95);
+  opacity: 1;
   transition: all 0.3s ease;
 }
 
-footer button:hover {
+.next_btn:hover {
   background: #0263ca;
 }
 
-footer button.show {
+/* footer button.show {
   opacity: 1;
   pointer-events: auto;
   transform: scale(1);
-}
+} */
 
 .result_box {
   background: #fff;
