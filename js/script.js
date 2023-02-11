@@ -4,8 +4,9 @@ const infoBox = document.querySelector(".info_box");
 const exitBtn = infoBox.querySelector(".buttons .quit");
 const continueBtn = infoBox.querySelector(".buttons .restart");
 const quizBox = document.querySelector(".quiz_box");
-const timeCount = quizBox.querySelector(".timer_sec");
-const timeLine = quizBox.querySelector(".time_line");
+const timeCount = quizBox.querySelector(".timer .timer_sec");
+const timeLine = quizBox.querySelector("header .time_line");
+const timeOff = quizBox.querySelector("header .time_txt");
 
 const optionList = document.querySelector(".option_list");
 
@@ -15,6 +16,7 @@ let crossIcon = '<div class="icon cross"><i class="fas fa-times"></i></div>';
 let questionCount = 0;
 let questionNumber = 1;
 let timeCounter;
+let counterLine;
 let timeValue = 15;
 let timerLineWidthValue = 0;
 let userScore = 0;
@@ -52,7 +54,10 @@ nextBtn.onclick = () => {
     startTimerLine(timerLineWidthValue);
     startTimer(timeValue);
     nextBtn.style.display = "none";
+    timeOff.textContent = 'Time left';
   } else {
+    clearInterval(timeCounter);
+    clearInterval(counterLine);
     showResultBox();
   }
 };
@@ -75,8 +80,7 @@ function showResultBox() {
       questions.length +
       "</p></span>";
     scoreText.innerHTML = scoreTag;
-  }
-  if (userScore == 4) {
+  } else if (userScore == 4) {
     let scoreTag =
       "<span>Nice...You got <p>" +
       userScore +
@@ -84,8 +88,7 @@ function showResultBox() {
       questions.length +
       "</p></span>";
     scoreText.innerHTML = scoreTag;
-  }
-  if (userScore == 3) {
+  } else if (userScore == 3) {
     let scoreTag =
       "<span>You got <p>" +
       userScore +
@@ -93,8 +96,7 @@ function showResultBox() {
       questions.length +
       "</p>. You can do better.</span>";
     scoreText.innerHTML = scoreTag;
-  }
-  if (userScore < 3) {
+  } else if (userScore == 2) {
     let scoreTag =
       "<span>Sorry...You got only <p>" +
       userScore +
@@ -102,14 +104,13 @@ function showResultBox() {
       questions.length +
       "</p></span>";
     scoreText.innerHTML = scoreTag;
-  }
-  if (userScore < 1) {
+  } else if (userScore < 2) {
     let scoreTag =
-      "<span>Ooopppsss...You got <p>" +
+      "<span>You got <p>" +
       userScore +
       "</p> out of <p>" +
       questions.length +
-      "</p>. You should practise more!</span>";
+      "</p></span> <br> <span style='color:red;'>You should practise more!</span>";
     scoreText.innerHTML = scoreTag;
   }
 }
@@ -188,13 +189,28 @@ function startTimer(time) {
     }
     if (time < 0) {
       clearInterval(timeCounter);
+      clearInterval(counterLine);
       timeCount.textContent = "00";
+      timeOff.textContent = 'Time off';
+
+      let correctAnswer = questions[questionCount].answer;
+      let allOptions = optionList.children.length;
+
+      for (let i = 0; i < allOptions; i++) {
+        if (optionList.children[i].textContent == correctAnswer) {
+          optionList.children[i].setAttribute("class", "option correct");
+          optionList.children[i].insertAdjacentHTML("beforeend", tickIcon);
+        }
+      }
+      for (let i = 0; i < allOptions; i++) {
+        optionList.children[i].classList.add("disabled");
+      }
+      nextBtn.style.display = "block";
     }
   }
 }
 
 // blue line / time line
-// count down timer
 function startTimerLine(time) {
   counterLine = setInterval(timer, 29);
   function timer() {
@@ -217,3 +233,27 @@ function questionCounter(index) {
     "</p>Questions</span>";
   bottomQuestionCounter.innerHTML = totalQuestionTag;
 }
+
+// restart quiz
+restartQuiz.onclick = () => {
+  resultBox.classList.remove('activeResult')
+  quizBox.classList.add('activeQuiz')
+  let questionCount = 0;
+  let questionNumber = 1;
+  let timeValue = 15;
+  let timerLineWidthValue = 0;
+  let userScore = 0;
+  showQuestions(questionCount);
+  questionCounter(questionNumber);
+  clearInterval(timeCounter);
+  clearInterval(counterLine);
+  startTimerLine(timerLineWidthValue);
+  startTimer(timeValue);
+  nextBtn.style.display = "none";
+  timeOff.textContent = 'Time left';
+};
+
+// quit the quiz
+quitQuiz.onclick = () => {
+  window.location.reload();
+};
