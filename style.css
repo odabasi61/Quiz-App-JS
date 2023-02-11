@@ -173,7 +173,6 @@ body {
   bottom: 0px;
   left: 0px;
   height: 3px;
-  width: 50%;
   background: #007bff;
 }
 
@@ -292,7 +291,7 @@ footer .total_que span p:first-child {
   background: #007bff;
   border: 1px solid #007bff;
   line-height: 10px;
-  opacity: 1;
+  display: none;
   transition: all 0.3s ease;
 }
 

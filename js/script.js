@@ -16,6 +16,8 @@ let questionCount = 0;
 let questionNumber = 1;
 let timeCounter;
 let timeValue = 15;
+let timerLineWidthValue = 0;
+let userScore = 0;
 
 // start button click
 startBtn.onclick = () => {
@@ -34,6 +36,7 @@ continueBtn.onclick = () => {
   showQuestions(0);
   questionCounter(1);
   startTimer(15);
+  startTimerLine(0);
 };
 
 // next button
@@ -45,11 +48,71 @@ nextBtn.onclick = () => {
     showQuestions(questionCount);
     questionCounter(questionNumber);
     clearInterval(timeCounter);
+    clearInterval(counterLine);
+    startTimerLine(timerLineWidthValue);
     startTimer(timeValue);
+    nextBtn.style.display = "none";
   } else {
-    console.log("questions completed");
+    showResultBox();
   }
 };
+
+// result box
+const resultBox = document.querySelector(".result_box");
+const restartQuiz = resultBox.querySelector(".restart");
+const quitQuiz = resultBox.querySelector(".quit");
+
+function showResultBox() {
+  infoBox.classList.remove("activeInfo"); // hide the info box
+  quizBox.classList.remove("activeQuiz"); // finish the quiz
+  resultBox.classList.add("activeResult"); // show result box
+  const scoreText = resultBox.querySelector(".score_text");
+  if (userScore == 5) {
+    let scoreTag =
+      "<span>Perfect...You got <p>" +
+      userScore +
+      "</p> out of <p>" +
+      questions.length +
+      "</p></span>";
+    scoreText.innerHTML = scoreTag;
+  }
+  if (userScore == 4) {
+    let scoreTag =
+      "<span>Nice...You got <p>" +
+      userScore +
+      "</p> out of <p>" +
+      questions.length +
+      "</p></span>";
+    scoreText.innerHTML = scoreTag;
+  }
+  if (userScore == 3) {
+    let scoreTag =
+      "<span>You got <p>" +
+      userScore +
+      "</p> out of <p>" +
+      questions.length +
+      "</p>. You can do better.</span>";
+    scoreText.innerHTML = scoreTag;
+  }
+  if (userScore < 3) {
+    let scoreTag =
+      "<span>Sorry...You got only <p>" +
+      userScore +
+      "</p> out of <p>" +
+      questions.length +
+      "</p></span>";
+    scoreText.innerHTML = scoreTag;
+  }
+  if (userScore < 1) {
+    let scoreTag =
+      "<span>Ooopppsss...You got <p>" +
+      userScore +
+      "</p> out of <p>" +
+      questions.length +
+      "</p>. You should practise more!</span>";
+    scoreText.innerHTML = scoreTag;
+  }
+}
 
 // getting questions and answers from the array
 function showQuestions(index) {
@@ -83,11 +146,14 @@ function showQuestions(index) {
 
 // option selecting
 function optionSelected(answer) {
+  clearInterval(counterLine);
   clearInterval(timeCounter);
   let userAnswer = answer.textContent;
   let correctAnswer = questions[questionCount].answer;
   let allOptions = optionList.children.length;
+
   if (userAnswer == correctAnswer) {
+    userScore += 1;
     answer.classList.add("correct");
     answer.insertAdjacentHTML("beforeend", tickIcon);
   } else {
@@ -107,6 +173,7 @@ function optionSelected(answer) {
   for (let i = 0; i < allOptions; i++) {
     optionList.children[i].classList.add("disabled");
   }
+  nextBtn.style.display = "block";
 }
 
 // count down timer
@@ -122,6 +189,19 @@ function startTimer(time) {
     if (time < 0) {
       clearInterval(timeCounter);
       timeCount.textContent = "00";
+    }
+  }
+}
+
+// blue line / time line
+// count down timer
+function startTimerLine(time) {
+  counterLine = setInterval(timer, 29);
+  function timer() {
+    time += 1;
+    timeLine.style.width = time + "px";
+    if (time > 1549) {
+      clearInterval(counterLine);
     }
   }
 }
