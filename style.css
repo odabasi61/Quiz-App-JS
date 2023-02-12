@@ -380,3 +380,16 @@ footer .total_que span p:first-child {
   color: #fff;
   background: #007bff;
 }
+
+@media only screen and (max-width: 700px) {
+  .info_box,
+  .quiz_box,
+  .result_box {
+    width: 100%;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+  }
+}
