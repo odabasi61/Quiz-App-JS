@@ -54,7 +54,7 @@ nextBtn.onclick = () => {
     startTimerLine(timerLineWidthValue);
     startTimer(timeValue);
     nextBtn.style.display = "none";
-    timeOff.textContent = 'Time left';
+    timeOff.textContent = "Time left";
   } else {
     clearInterval(timeCounter);
     clearInterval(counterLine);
@@ -64,7 +64,6 @@ nextBtn.onclick = () => {
 
 // result box
 const resultBox = document.querySelector(".result_box");
-const restartQuiz = resultBox.querySelector(".restart");
 const quitQuiz = resultBox.querySelector(".quit");
 
 function showResultBox() {
@@ -72,7 +71,7 @@ function showResultBox() {
   quizBox.classList.remove("activeQuiz"); // finish the quiz
   resultBox.classList.add("activeResult"); // show result box
   const scoreText = resultBox.querySelector(".score_text");
-  if (userScore == 5) {
+  if (userScore == 10) {
     let scoreTag =
       "<span>Perfect...You got <p>" +
       userScore +
@@ -80,7 +79,7 @@ function showResultBox() {
       questions.length +
       "</p></span>";
     scoreText.innerHTML = scoreTag;
-  } else if (userScore == 4) {
+  } else if (userScore >= 7 && userScore < 10) {
     let scoreTag =
       "<span>Nice...You got <p>" +
       userScore +
@@ -88,7 +87,7 @@ function showResultBox() {
       questions.length +
       "</p></span>";
     scoreText.innerHTML = scoreTag;
-  } else if (userScore == 3) {
+  } else if (userScore > 4 && userScore < 7) {
     let scoreTag =
       "<span>You got <p>" +
       userScore +
@@ -96,7 +95,7 @@ function showResultBox() {
       questions.length +
       "</p>. You can do better.</span>";
     scoreText.innerHTML = scoreTag;
-  } else if (userScore == 2) {
+  } else if (userScore > 2 && userScore <= 4) {
     let scoreTag =
       "<span>Sorry...You got only <p>" +
       userScore +
@@ -104,7 +103,7 @@ function showResultBox() {
       questions.length +
       "</p></span>";
     scoreText.innerHTML = scoreTag;
-  } else if (userScore < 2) {
+  } else if (userScore <= 2) {
     let scoreTag =
       "<span>You got <p>" +
       userScore +
@@ -191,7 +190,7 @@ function startTimer(time) {
       clearInterval(timeCounter);
       clearInterval(counterLine);
       timeCount.textContent = "00";
-      timeOff.textContent = 'Time off';
+      timeOff.textContent = "Time off";
 
       let correctAnswer = questions[questionCount].answer;
       let allOptions = optionList.children.length;
@@ -233,25 +232,6 @@ function questionCounter(index) {
     "</p>Questions</span>";
   bottomQuestionCounter.innerHTML = totalQuestionTag;
 }
-
-// restart quiz
-restartQuiz.onclick = () => {
-  resultBox.classList.remove('activeResult')
-  quizBox.classList.add('activeQuiz')
-  let questionCount = 0;
-  let questionNumber = 1;
-  let timeValue = 15;
-  let timerLineWidthValue = 0;
-  let userScore = 0;
-  showQuestions(questionCount);
-  questionCounter(questionNumber);
-  clearInterval(timeCounter);
-  clearInterval(counterLine);
-  startTimerLine(timerLineWidthValue);
-  startTimer(timeValue);
-  nextBtn.style.display = "none";
-  timeOff.textContent = 'Time left';
-};
 
 // quit the quiz
 quitQuiz.onclick = () => {

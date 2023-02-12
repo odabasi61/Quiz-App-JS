@@ -55,17 +55,47 @@ let questions = [
       "eXamine Multiple Language",
     ],
   },
-  // you can uncomment the below codes and make duplicate as more as you want to add question
-  // but remember you need to give the numb value serialize like 1,2,3,5,6,7,8,9.....
-  //   {
-  //   numb: 6,
-  //   question: "Your Question is Here",
-  //   answer: "Correct answer of the question is here",
-  //   options: [
-  //     "Option 1",
-  //     "option 2",
-  //     "option 3",
-  //     "option 4"
-  //   ]
-  // },
+  {
+    numb: 6,
+    question: "When is the link tag used?",
+    answer: "when linking style sheets, favicons, and preloading assets",
+    options: [
+      "when linking style sheets, favicons, and preloading assets",
+      "when linking one webpage to another",
+      "when linking style sheets, external URLs, and favicons",
+      "when linking style sheets, JavaScript, and icons for mobile apps",
+    ],
+  },
+  {
+    numb: 7,
+    question: "What is NOT a valid attribute for the textarea element?",
+    answer: "max",
+    options: ["readonly", "max", "form", "spellcheck"],
+  },
+  {
+    numb: 8,
+    question: "What does the label element do?",
+    answer:
+      "It programmatically associates a text label with an interface element.",
+    options: [
+      "It labels webpages with important information.",
+      "It overrides the name attribute's value on a child input element.",
+      "It programmatically associates a text label with an interface element.",
+      "It creates an ID for a corresponding input element.",
+    ],
+  },
+  {
+    numb: 9,
+    question:
+      "To get a link to open in a new window or tab, use the _ attribute",
+    answer: "_blank",
+    options: ["_self", "_new", "_parent", "_blank"],
+  },
+  {
+    numb: 10,
+    question:
+      "Which choice is NOT a legal value for the name attribute within a meta tag?",
+    answer: "charset",
+    options: ["charset", "viewport", "author", "generator"],
+  },
 ];
